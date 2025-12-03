@@ -1,1 +1,2 @@
 # Task-Manager
+Smart Task Manager is a lightweight, intelligent task management app built with HTML, CSS, and JavaScript. It helps users prioritize work, estimate effort, reduce overwhelm, and focus on the most meaningful tasks. The app includes features like a smart recommendation engine, focus mode, progress tracking, estimated completion time (ECT), custom filters, and cognitive load warnings — all packed into a clean, responsive, and minimal UI. Designed for fast daily planning and clearer decision-making.

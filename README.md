@@ -22,41 +22,20 @@ Helps users act instead of overthinking.
 🔹 Effort-Based Planning
 
   Effort levels (2m, 5m, 15m, Deep Work) used for:
-
-    filtering
-
-    ECT calculation
-
-    warnings
-
-    prioritization logic
+filtering, ECT calculation, warnings, prioritization logic.
 
 🔹 Progress Tracking + ECT
 
-Dynamic progress bar
-
-Color-coded progress stages
-
-Estimated Completion Time for remaining tasks
-
-Updates based on filters
+  Dynamic progress bar, Color-coded progress stages, Estimated Completion Time for remaining tasks, Updates based on filters.
 
 🔹 Overload & Priority Warnings
 
-Too many deep-work tasks
-
-Too many high-priority tasks
-
-Overdue items
+Too many deep-work tasks, Too many high-priority tasks, Overdue items.
 
 🔹 Clean, Modern UI Components
 
-Gradient/glass card design
-
-Custom dropdowns
-
-Line clamp + More/Less toggle
-
-Auto-move completed tasks to bottom
-
-Responsive and mobile-friendly
+Gradient/glass card design,
+Custom dropdowns,
+Line clamp + More/Less toggle,
+Auto-move completed tasks to bottom,
+Responsive and mobile-friendly.

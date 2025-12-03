@@ -10,25 +10,26 @@ With adaptive warnings, clean UI components, responsive layout, and smooth card 
 
 🔹 Smart Recommendation Engine
 
-Ranks tasks using:
+  Ranks tasks using:
 due date → priority → effort → creation time
+
 Helps users act instead of overthinking.
 
 🔹 Focus Mode
 
-A distraction-free mode that shows only one task with title, metadata, description, and a centered “Mark As Done” button.
+  A distraction-free mode that shows only one task with title, metadata, description, and a centered “Mark As Done” button.
 
 🔹 Effort-Based Planning
 
-Effort levels (2m, 5m, 15m, Deep Work) used for:
+  Effort levels (2m, 5m, 15m, Deep Work) used for:
 
-filtering
+    filtering
 
-ECT calculation
+    ECT calculation
 
-warnings
+    warnings
 
-prioritization logic
+    prioritization logic
 
 🔹 Progress Tracking + ECT
 

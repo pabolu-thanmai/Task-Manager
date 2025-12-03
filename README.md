@@ -7,6 +7,7 @@ Using effort tags, priority levels, due dates, and a smart scoring heuristic, it
 With adaptive warnings, clean UI components, responsive layout, and smooth card behavior (clamp, expand, reorder), this project demonstrates practical front-end engineering grounded in user experience and clear, maintainable logic.
 
 ✨ Feature Highlights
+
 🔹 Smart Recommendation Engine
 
 Ranks tasks using:

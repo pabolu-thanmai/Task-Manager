@@ -1,0 +1,694 @@
+/* style2.css - full patched CSS (responsive, premium, clamps + desc toggles) */
+
+/* Reset & tokens */
+* { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+:root{
+  --primary:#4f46e5; --primary-soft:#3730a3; --primary-2:#6d28d9;
+  --text-main:#e5e7eb; --text-muted:#9ca3af;
+  --radius-lg:16px; --radius-md:12px;
+  --shadow-soft:0 18px 45px rgba(15,23,42,0.45);
+  --transition-fast:0.15s;
+}
+
+/* Layout */
+html,body{height:100%;}
+body {
+  background: radial-gradient(
+    circle at 20% 10%,
+    #0b1220 0%,
+    #020617 55%,
+    #000000 100%
+  );
+  background-attachment: fixed;
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text-main);
+}
+
+/* Header/footer */
+.app-header{padding:16px 20px; position:sticky; top:0; z-index:10; background:linear-gradient(to bottom, rgba(7,10,18,0.86), rgba(7,10,18,0.6)); border-bottom:1px solid rgba(148,163,184,0.04);}
+.header-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.app-header h1{margin:0;font-size:1.6rem;}
+.subtitle{margin-top:6px;color:var(--text-muted);font-size:0.92rem;}
+.app-footer{margin-top:auto;text-align:center;padding:14px;color:var(--text-muted);font-size:0.8rem;border-top:1px solid rgba(31,41,55,0.06);background:rgba(2,6,23,0.85);}
+
+/* Recommendation card in header */
+.recommend-card {
+  min-width:240px;
+  max-width:100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));
+  border: 1px solid rgba(79,70,229,0.09);
+  padding: 10px 12px;
+  border-radius: 12px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  box-shadow: 0 8px 18px rgba(2,6,23,0.45);
+}
+.recommend-left{flex:1;min-width:0;}
+.recommend-left h4{margin:0;font-size:0.95rem;color:var(--text-main);line-height:1.15;}
+.recommend-meta{font-size:0.82rem;color:var(--text-muted);display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.recommend-actions{flex:0 0 auto;display:flex;align-items:center;gap:8px;}
+.recommend-placeholder{color:var(--text-muted);font-size:0.9rem;}
+
+/* Card */
+.card{width:100%;max-width:1000px;margin:18px auto;padding:18px;border-radius:var(--radius-lg);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);box-shadow:var(--shadow-soft);}
+
+/* Banners */
+.banner{max-width:1000px;margin:8px auto;padding:10px 14px;border-radius:10px;font-size:0.88rem;}
+#load-warning{background:rgba(250,204,21,0.08);color:#facc15;border:1px solid rgba(250,204,21,0.18);}
+#priority-warning{background:rgba(248,113,113,0.08);color:#fecaca;border:1px solid rgba(248,113,113,0.18);}
+#overdue-warning{background: rgba(239, 68, 68, 0.08); color: #fecaca; border:1px solid rgba(239, 68, 68, 0.18);}
+.hidden{display:none!important;}
+
+/* Controls alignment */
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+/* Let filters take the remaining space so right-controls sits at the right edge */
+.controls-row .filters {
+  flex: 1 1 0%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Right controls (effort select + focus button) stay compact */
+.right-controls {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Slight visual polish for the focus button in the controls card */
+#focus-mode-toggle {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+  color: white;
+  cursor: pointer;
+}
+
+/* Rows & helpers */
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.row.spaced{justify-content:flex-end;}
+.right-controls{display:flex;align-items:center;gap:12px;}
+.effort-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+/* ---------- Custom Effort Dropdown (theme-matched) ---------- */
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  min-width: 140px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  user-select: none;
+}
+
+/* Toggle button */
+.custom-select-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(79,70,229,0.55);
+  color: var(--text-main);
+  cursor: pointer;
+  outline: none;
+}
+
+/* text value */
+.custom-select-value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* arrow */
+.custom-select-arrow {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* Options list (hidden by default) */
+.custom-select-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 6px 6px;
+  list-style: none;
+  border-radius: 8px;
+  background: #071126;
+  border: 1px solid rgba(79,70,229,0.12);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  z-index: 999;
+  max-height: 240px;
+  overflow: auto;
+  display: none;
+}
+
+/* Option item */
+.custom-select-options .option {
+  padding: 10px 12px;
+  margin: 3px 0;
+  border-radius: 6px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Hover color (theme) */
+.custom-select-options .option:hover {
+  background: rgba(79,70,229,0.20);
+  color: #fff;
+}
+
+/* Selected item style (visible in list) */
+.custom-select-options .option.selected {
+  background: rgba(79,70,229,0.30);
+  color: #fff;
+}
+
+/* Show the list (when .open class applied) */
+.custom-select.open .custom-select-options {
+  display: block;
+  animation: fadeIn 140ms ease-out;
+}
+
+/* small fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile: make it wide enough */
+@media (max-width: 720px) {
+  .custom-select { min-width: 120px; }
+  .custom-select-options { left: 0; right: 0; width: auto; }
+}
+
+/* Inputs */
+input[type="text"],textarea,input[type="date"],select,input[type="email"],input[type="password"]{
+  width:100%;margin-bottom:10px;padding:10px 12px;border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--text-main);font-size:0.95rem;outline:none;transition:box-shadow var(--transition-fast);
+}
+textarea{min-height:72px;resize:vertical;}
+input:focus,textarea:focus,select:focus{box-shadow:0 0 0 6px rgba(79,70,229,0.06);}
+
+/* Make label + date input horizontal */
+#add-task .date-inline { display:flex; flex-direction:row; align-items:center; gap:8px; }
+#add-task .date-inline input[type="date"] { flex:0 0 170px; }
+
+/* Make date input match Effort dropdown style */
+#add-task input[type="date"] {
+  padding: 8px 12px;
+  height: 35px;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(79,70,229,0.55);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+input[type="date"] {
+  position: relative;
+  padding-right: 42px;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+  color: var(--text-main);
+  -webkit-text-fill-color: var(--text-main);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ffffff' d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H5V9h14v9z'/></svg>");
+  background-color: rgba(255,255,255,0.02);
+  border-radius: 10px;
+}
+
+/* Make the icon and native indicator white on WebKit/Chromium */
+@supports (-webkit-appearance: none) {
+  input[type="date"] {
+    background-image: none;
+    padding-right: 38px;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1) brightness(2) contrast(1);
+    opacity: 1;
+    -webkit-appearance: none;
+  }
+}
+input[type="date"]::-moz-focus-inner { border: 0; }
+#add-task input[type="date"]:hover { border-color: rgba(99,102,241,0.85); background: rgba(255,255,255,0.045); }
+#add-task input[type="date"]:focus { outline:none; border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,0.14); }
+
+/* Buttons */
+.primary,.secondary{border-radius:999px;padding:8px 14px;border:none;font-size:0.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform var(--transition-fast),box-shadow var(--transition-fast);}
+.primary{background:linear-gradient(135deg,var(--primary),var(--primary-soft));color:white;box-shadow:0 10px 30px rgba(79,70,229,0.35);}
+.secondary{background:rgba(255,255,255,0.02);color:var(--text-main);border:1px solid rgba(255,255,255,0.03);}
+
+/* Inline edit styles for tasks */
+.task-edit-form { display: flex; flex-direction: column; gap: 8px; width: 100%; height: 100%; }
+.task-edit-row { display: flex; gap: 8px; align-items: center; width: 100%; }
+.task-edit-row input[type="text"], .task-edit-row textarea, .task-edit-row select, .task-edit-row input[type="date"] { padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color: var(--text-main); font-size: 0.92rem; }
+.task-edit-row textarea { min-height: 60px; resize: vertical; }
+
+/* Save / Cancel group */
+.task-edit-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+.task-edit-actions .primary { padding: 8px 12px; }
+.task-edit-actions .secondary { padding: 8px 12px; }
+
+/* Slight visual distinction for the editing card */
+.task.editing { outline: 1px dashed rgba(79,70,229,0.18); background: linear-gradient(180deg, rgba(79,70,229,0.02), rgba(255,255,255,0.005)); }
+
+/* Filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.filter{border-radius:999px;padding:6px 12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--text-muted);font-size:0.88rem;}
+.filter.active{background:linear-gradient(135deg,var(--primary),var(--primary-soft));color:#fff;border-color:transparent;}
+
+/* Task list cards */
+.task{border-radius:var(--radius-md);padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);}
+.task-main{display:flex;gap:12px;align-items:flex-start;min-width:0;}
+.task-text{display:flex;flex-direction:column;min-width:0;}
+.task-text h3{margin:0;font-size:0.98rem;}
+.task-text p{margin:6px 0 0;color:var(--text-muted);font-size:0.9rem;}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;font-size:0.82rem;color:var(--text-muted);}
+
+/* Completed strike-through (applies to title + description and meta) */
+.task.completed { opacity: 0.6; border-style: dashed; }
+.task.completed h3, .task.completed p, .task.completed .meta { text-decoration: line-through; opacity: 0.6; }
+
+.delete-btn{border-radius:12px;border:none;background:rgba(249,99,99,0.12);color:#fecaca;font-size:0.82rem;padding:6px 10px;cursor:pointer;}
+
+/* Priority badges */
+.priority-badge{padding:4px 8px;border-radius:999px;font-size:0.75rem;font-weight:600;}
+.priority-badge.high{background:rgba(248,113,113,0.12);color:#fecaca;}
+.priority-badge.medium{background:rgba(59,130,246,0.10);color:#bfdbfe;}
+.priority-badge.low{background:rgba(34,197,94,0.10);color:#bbf7d0;}
+
+/* Empty */
+.empty{text-align:center;color:var(--text-muted);font-size:0.95rem;margin:12px 0;}
+
+/* -------------------------
+   FOCUS MODE — EXACT FIX
+   Left column: stacked
+   Right column: vertically centered button
+   ------------------------- */
+
+#focus-mode{margin-top:16px;border-radius:20px;padding:16px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);box-shadow:var(--shadow-soft);}
+#focus-mode h2{margin:0 0 8px;font-size:1.05rem;}
+#focus-mode .hint{margin:0 0 12px;color:var(--text-muted);font-size:0.92rem;}
+
+/* Card itself */
+.focus-card{width:100%;padding:18px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));border:1px solid rgba(79,70,229,0.08);box-shadow:0 8px 26px rgba(2,6,23,0.45);overflow:hidden;}
+
+/* Inner: two columns */
+.focus-card-inner{display:flex;justify-content:space-between;align-items:stretch;gap:18px;}
+
+/* LEFT stacked column */
+.focus-left{flex:1 1 0%;display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;}
+.focus-title{margin:0;font-size:1.18rem;font-weight:700;color:var(--text-main);line-height:1.15;text-align:left;width:100%;}
+.focus-meta{display:flex;flex-wrap:wrap;gap:8px;color:var(--text-muted);font-size:0.86rem;width:100%;}
+.focus-desc{margin:0;padding:10px 12px;width:100%;background:rgba(255,255,255,0.02);border-left:3px solid rgba(79,70,229,0.10);border-radius:8px;color:var(--text-muted);font-size:0.95rem;line-height:1.55;text-align:left;overflow-wrap:break-word;}
+
+/* RIGHT button column (vertically centered) */
+.focus-right{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding-left:8px;}
+.focus-right .primary{padding:10px 18px;font-weight:700;border-radius:999px;white-space:nowrap;box-shadow:0 10px 28px rgba(79,70,229,0.32);}
+
+/* Mobile stacking override */
+@media (max-width:720px){
+  .card{margin:12px;padding:14px;}
+  .focus-card{padding:14px;}
+  .focus-card-inner{flex-direction:column;align-items:stretch;}
+  .focus-right{justify-content:flex-end;margin-top:12px;}
+}
+
+/* small-phone adjustments */
+@media (max-width:420px){
+  .app-header h1{font-size:1.4rem;}
+  .subtitle{font-size:0.85rem;}
+  .focus-title{font-size:1.05rem;}
+  .focus-desc{font-size:0.92rem;padding:8px 10px;}
+  .primary{padding:8px 14px;font-size:0.92rem;}
+  .controls-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .controls-row .filters { width: 100%; justify-content: flex-start; }
+  .right-controls { justify-content: flex-end; width: 100%; }
+  #focus-mode-toggle { width: auto; }
+  input[type="date"] { padding-right: 34px; background-size:16px; }
+  .header-top { flex-direction: column; align-items: flex-start; gap: 10px; }
+  #recommendation-area { width:100%; }
+}
+
+/* Progress indicator card (compact, subtle) */
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+  max-width: 320px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  height: 70px;
+  width: 200px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.004));
+  border: 1px solid rgba(255,255,255,0.03);
+  color: var(--text-main);
+  font-size: 0.88rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.18);
+}
+
+/* Info text row */
+.progress-info { display: flex; justify-content: space-between; align-items: center; }
+
+/* progress bar container */
+.progress-bar { width: 100%; height: 10px; background: rgba(255,255,255,0.03); border-radius: 999px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02); }
+
+/* the fill */
+.progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-soft)); border-radius: 999px; transition: width 450ms cubic-bezier(.2,.9,.2,1), background 250ms; box-shadow: 0 6px 18px rgba(79,70,229,0.12) inset; }
+
+/* small percent text on right (optional) */
+#progress-text { font-size: 0.84rem; color: var(--text-muted); }
+
+/* responsive: hide progress-card on very small phones to reduce congestion */
+@media (max-width: 520px) {
+  .progress-card { display: none; }
+}
+
+/* ===== Fix: remove vertical split on summary area ===== */
+.summary-section {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(79,70,229,0.08);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.35);
+  padding: 18px;
+  border-radius: 16px;
+}
+.summary-inner { display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: nowrap; }
+.progress-card, #progress-area { background: rgba(255,255,255,0.02); border: 1px solid rgba(79,70,229,0.08); box-shadow: 0 8px 22px rgba(2,6,23,0.28); color: var(--text-main); padding: 10px 12px; min-width: 400px; border-radius: 12px; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.recommend-card, #recommendation-area > .recommend-card{ background: rgba(255,255,255,0.02); border: 1px solid rgba(79,70,229,0.08); box-shadow: 0 8px 22px rgba(2,6,23,0.28); color: var(--text-main); padding: 10px 12px; min-width: 400px; border-radius: 12px; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.progress-card .progress-bar, .recommend-card, #recommendation-area .recommend-left, #recommendation-area .recommend-meta { background: transparent !important; }
+.progress-fill { background: linear-gradient(90deg, var(--primary), var(--primary-soft)); box-shadow: none; transition: width 450ms cubic-bezier(.2,.9,.2,1); }
+/* SUMMARY / PROGRESS / RECOMMEND LAYOUT (force side-by-side) */
+.summary-inner {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;    /* top-aligned so cards align naturally */
+  justify-content: space-between;
+  flex-wrap: nowrap;          /* prevent wrapping to next line on desktop */
+}
+
+/* Make the progress area flexible and take available space */
+.progress-card, #progress-area {
+  flex: 1 1 0;
+  min-width: 260px;           /* keep narrow enough so it won't force wrap */
+  max-width: 720px;
+}
+
+/* Keep recommendation card fixed width to the right */
+.recommend-card, #recommendation-area > .recommend-card {
+  flex: 0 0 320px;            /* fixed column on the right */
+  min-width: 240px;
+  max-width: 360px;
+}
+
+/* Ensure consistent backgrounds and no double min-width forcing */
+.progress-card, .recommend-card {
+  min-width: 0;               /* allow proper shrinking inside flex */
+}
+
+/* Responsive fallback: allow wrapping under 880px */
+@media (max-width: 880px) {
+  .summary-inner { flex-wrap: wrap; }
+  .progress-card, .recommend-card { flex: 1 1 100%; max-width: 100%; }
+}
+
+/* On small screens keep it consistent */
+@media (max-width:720px) {
+  .summary-section, .progress-card, .recommend-card {
+    background: rgba(10,18,34,0.98);
+  }
+}
+
+/* Make Start button in recommendation area identical to primary */
+#recommendation-area button[data-action="focus"]{
+    background: linear-gradient(135deg, var(--primary), var(--primary-soft));
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Estimated Completion Time (ECT) box */
+.ect-box { grid-column: 1 / -1; margin-top: 10px; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.03); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); font-size: 0.95rem; text-align: left; }
+
+/* Unified Progress + ECT Card */
+.productivity-card { padding: 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 8px 18px rgba(0,0,0,0.25); display: flex; flex-direction: column; gap: 14px; }
+.progress-card-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; color: var(--text-muted); }
+.progress-bar { width: 100%; height: 14px; background: rgba(255, 255, 255, 0.05); border-radius: 999px; border: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
+#progress-fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; background: linear-gradient(90deg, var(--primary), var(--primary-2)); }
+
+/* ECT Line */
+.ect-line { color: var(--text-muted); font-size: 0.88rem; padding-top: 2px; }
+
+/* Reduce page width for sections */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 12px;
+}
+
+/* UX: ensure consistent look for recommend card */
+.recommend-card { display:flex; justify-content:space-between; align-items:stretch; gap:12px; padding:12px; border-radius:12px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); box-shadow:0 8px 18px rgba(0,0,0,0.20); width:100%; box-sizing:border-box; min-height:80px; }
+
+/* LEFT: top-aligned stack */
+.recommend-left { display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-start; min-width:0; flex:1; gap:4px; }
+.recommend-left h4 { margin:0; font-size:0.95rem; font-weight:600; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.recommend-meta { margin:0; font-size:0.82rem; color:var(--text-muted); display:flex; gap:8px; flex-wrap:wrap; line-height:1.2; }
+
+/* Desc wrapper (stack) */
+.desc-wrap { display:flex; flex-direction:column; gap:6px; width:100%; min-width:0; }
+
+/* Description box (clamped) */
+.recommend-desc, .task-desc, .focus-desc {
+  margin:0; padding:8px 10px;
+  background: rgba(255,255,255,0.02);
+  border-left:3px solid rgba(79,70,229,0.12);
+  border-radius:6px;
+  color:var(--text-muted); font-size:0.88rem; line-height:1.35;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; word-break:break-word; hyphens:auto; max-width:100%;
+}
+
+/* Expanded descriptions */
+.recommend-desc.expanded, .task-desc.expanded, .focus-desc.expanded {
+  -webkit-line-clamp: unset; display:block; overflow:visible;
+}
+
+/* More/Less button */
+.desc-toggle { margin-top:4px; font-size:0.85rem; background:none; color:var(--primary); border:none; cursor:pointer; padding:0; display:none; text-decoration:underline; align-self:flex-start; }
+.desc-toggle.visible { display:inline-block; }
+
+/* Right actions area for recommendation */
+.recommend-actions { flex:0 0 auto; display:flex; align-items:center; justify-content:center; padding-left:8px; max-width:140px; }
+
+/* Task actions (right) */
+.task-actions { display:flex; gap:10px; align-items:center; flex:0 0 auto; }
+
+/* Title clamp for tasks and focus */
+.task-text h3, .recommend-left h4, .focus-title {
+  margin:0; font-weight:600; color:var(--text-main); font-size:0.98rem; line-height:1.2;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; text-overflow:ellipsis; word-break:break-word; white-space:normal;
+}
+
+/* Task row layout fixes */
+.task { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; min-height:62px; padding:14px; box-sizing:border-box; }
+.task-main { display:flex; align-items:flex-start; gap:12px; min-width:0; flex:1 1 auto; }
+.task-text { min-width:0; overflow:hidden; display:flex; flex-direction:column; gap:6px; }
+
+/* small screens layout adjustments */
+@media (max-width:720px) {
+  .task { flex-direction:column; align-items:flex-start; }
+  .task-actions { align-self:flex-end; margin-top:8px; }
+  .recommend-card { flex-direction:column; align-items:flex-start; }
+  .recommend-actions { align-self:flex-end; margin-top:8px; max-width:none; }
+  .recommend-left h4 { white-space:normal; }
+  .recommend-desc { -webkit-line-clamp:3; }
+}
+
+/* Utility */
+.visually-hidden { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+
+/* ----------- FIX CLAMP / EXPAND ----------- */
+
+.task-desc,
+.recommend-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  max-width: 100%;
+  line-height: 2;
+}
+.task-desc.expanded,
+.recommend-desc.expanded {
+  -webkit-line-clamp: unset !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+/* Toggle button */
+.desc-toggle {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* JS makes visible */
+}
+
+.desc-toggle.visible {
+  display: inline-block;
+}
+
+/* Ensure card can expand */
+.task,
+.recommend-card {
+  height: auto !important;
+}
+/* ---- SUMMARY SPLIT 50 / 50 ---- */
+
+.summary-inner {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.summary-inner > * {
+  flex: 1 1 0;       /* perfect 50/50 split */
+  min-width: 0;      /* prevents overflow pushing layout */
+}
+
+/* Remove weird minimum widths */
+.progress-card,
+#progress-area,
+.recommend-card,
+#recommendation-area > .recommend-card {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Mobile collapses into vertical */
+@media (max-width: 780px) {
+  .summary-inner { flex-direction: column; }
+}
+
+/* --- Tweak: smaller progress card + thinner progress bar --- */
+
+/* Make the progress card slimmer on desktop, but still responsive */
+.progress-card {
+  /* target a smaller, tighter width */
+  width: 150px;           /* explicit narrower width */
+  min-width: 140px;       /* allow shrink slightly if needed */
+  max-width: 220px;       /* prevent it from stretching too wide */
+  height: auto;           /* let height grow if content needs it */
+  padding: 8px 10px;      /* keep compact padding */
+  gap: 6px;
+}
+
+/* Reduce progress bar height (thinner line) */
+.progress-bar {
+  height: 9px;            /* thinner track */
+  border-radius: 999px;   /* keep pill shape */
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+
+/* Ensure the fill matches the new height */
+.progress-fill,
+#progress-fill {
+  height: 100%;           /* fill matches reduced track height */
+  border-radius: 999px;
+  transition: width 0.4s ease;
+  box-shadow: none;       /* keep it flat or remove if you prefer subtle inset */
+}
+
+/* Optional: reduce font-size in compact progress card */
+.progress-card { font-size: 0.82rem; }
+
+/* Responsive: when viewport is very small, let the progress-card become a bit wider to remain legible */
+@media (max-width: 520px) {
+  .progress-card {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    display: block;
+    height: auto;
+  }
+  .progress-bar { height: 10px; } /* slightly thicker on tiny screens for tap/focus friendliness */
+}
+
+/* Focus description should behave like task/recommend desc */
+.focus-desc {
+  margin: 0;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.02);
+  border-left: 3px solid rgba(79,70,229,0.12);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 2;
+
+  /* clamp to 2 lines */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* When expanded, become full block */
+.focus-desc.expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
+}
+
+/* wrapper for stacking desc + button in focus card (same as others) */
+.focus-desc-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+/* Reuse the same toggle style */
+.focus-desc-wrap .desc-toggle { align-self: flex-start; }
+
+/* Ensure focus card grows to fit expanded desc */
+.focus-card, .focus-card-inner { height: auto !important; }
+

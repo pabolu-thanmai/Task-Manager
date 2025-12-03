@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cognitive Load Aware Task Manager</title>
+  <link rel="stylesheet" href="style2.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-top">
+      <div>
+        <h1>Cognitive Load Aware Task Manager</h1>
+        <p class="subtitle">Plan less. Focus better. Finish more.</p>
+      </div>
+      <!-- kept blank intentionally — widgets moved below title for clearer layout -->
+      <div style="width:1px;visibility:hidden;"></div>
+    </div>
+  </header>
+
+  <section id="messages">
+    <div id="load-warning" class="banner hidden"></div>
+    <div id="priority-warning" class="banner hidden"></div>
+    <div id="overdue-warning" class="banner hidden"></div>
+  </section>
+
+  <section id="add-task" class="card">
+    <h2>Add a Task</h2>
+    <form id="task-form">
+      <input type="text" id="title" placeholder="Task title *" required />
+      <textarea id="description" placeholder="Description (optional)"></textarea>
+
+      <div class="row">
+        <label class="date-inline">
+          Due date
+          <input type="date" id="dueDate" />
+        </label>
+
+        <label>
+          Effort
+          <div class="custom-select" id="custom-effort-add" data-value="2" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <button type="button" class="custom-select-toggle" aria-label="Effort (add task)">
+              <span class="custom-select-value">2 min</span>
+              <span class="custom-select-arrow">▾</span>
+            </button>
+            <ul class="custom-select-options" role="listbox" aria-hidden="true">
+              <li role="option" data-value="2" class="option selected">2 min</li>
+              <li role="option" data-value="5" class="option">5 min</li>
+              <li role="option" data-value="15" class="option">15 min</li>
+              <li role="option" data-value="deep" class="option">Deep work</li>
+            </ul>
+          </div>
+        </label>
+
+        <label>
+          Priority
+          <div class="custom-select" id="custom-priority-add" data-value="medium" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <button type="button" class="custom-select-toggle" aria-label="Priority (add task)">
+              <span class="custom-select-value">Medium</span>
+              <span class="custom-select-arrow">▾</span>
+            </button>
+            <ul class="custom-select-options" role="listbox" aria-hidden="true">
+              <li role="option" data-value="low" class="option">Low</li>
+              <li role="option" data-value="medium" class="option selected">Medium</li>
+              <li role="option" data-value="high" class="option">High</li>
+            </ul>
+          </div>
+        </label>
+      </div>
+
+      <div class="row spaced">
+        <button type="submit" class="primary">Add Task</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Controls -->
+  <section id="controls" class="card">
+    <div class="controls-row">
+      <div id="filters" class="filters">
+        <button data-filter="all" class="filter active">All</button>
+        <button data-filter="today" class="filter">Today</button>
+        <button data-filter="upcoming" class="filter">Upcoming</button>
+        <button data-filter="overdue" class="filter">Overdue</button>
+        <button data-filter="completed" class="filter">Completed</button>
+      </div>
+
+      <div class="right-controls">
+        <label class="effort-filter-label">
+          Effort:
+          <div class="custom-select" id="custom-effort" data-value="all" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <button type="button" class="custom-select-toggle" aria-label="Effort filter">
+              <span class="custom-select-value">All</span>
+              <span class="custom-select-arrow">▾</span>
+            </button>
+
+            <ul class="custom-select-options" role="listbox" aria-hidden="true">
+              <li role="option" data-value="all" class="option selected">All</li>
+              <li role="option" data-value="2" class="option">2 min</li>
+              <li role="option" data-value="5" class="option">5 min</li>
+              <li role="option" data-value="15" class="option">15 min</li>
+              <li role="option" data-value="deep" class="option">Deep work</li>
+            </ul>
+          </div>
+        </label>
+
+        <button id="focus-mode-toggle" class="secondary">Start Focus Mode</button>
+      </div>
+    </div>
+  </section>
+
+<!-- NEW: Progress + Recommendation Block -->
+<section id="summary-widgets" class="card summary-section">
+  <div class="summary-inner">
+
+  <!-- Unified Productivity Card -->
+  <div id="productivity-card" class="productivity-card">
+      <div class="progress-card-header">
+          <span id="progress-text"></span>
+      </div>
+
+      <div class="progress-bar">
+          <div id="progress-fill"></div>
+      </div>
+
+      <div id="ect-area" class="ect-line"></div>
+  </div>
+
+  <!-- Recommendation Card -->
+  <div id="recommendation-area"></div>
+
+</div>
+
+</section>
+
+  <!-- Focus Mode -->
+  <section id="focus-mode" class="card hidden">
+    <h2>Focus Mode</h2>
+    <p class="hint">One task at a time to reduce overwhelm.</p>
+    <div id="focus-task-container"></div>
+    <div class="row spaced" style="margin-top:12px;">
+      <button id="exit-focus" class="secondary">Exit Focus Mode</button>
+    </div>
+  </section>
+
+  <!-- Task List -->
+  <main id="task-list" class="card">
+    <div id="task-list-container"></div>
+  </main>
+
+  <footer class="app-footer">
+    <small>Built as an internship assignment — focusing on cognitive load, not endless features.</small>
+  </footer>
+
+  <script src="script2.js"></script>
+</body>
+</html>
+
